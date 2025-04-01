@@ -1,87 +1,54 @@
-<div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}">
-    <!--
-Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-Tip 2: you can also add an image using data-image tag
--->
-    <div class="sidebar-wrapper">
-        <div class="logo">
-            <a href="http://www.creative-tim.com" class="simple-text">
-                {{ __("Creative Tim") }}
-            </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Visitors Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white h-screen shadow-lg p-5">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">AVMS</h2>
+            <ul>
+                <li class="mb-3"><a href="#" class="flex items-center text-blue-600 font-semibold"><span class="mr-2">&#128202;</span> Dashboard</a></li>
+                <li class="mb-3"><a href="#" class="flex items-center"><span class="mr-2">&#128100;</span> New Visitor</a></li>
+                <li class="mb-3"><a href="#" class="flex items-center"><span class="mr-2">&#128101;</span> Manage Visitors</a></li>
+                <li><a href="#" class="flex items-center"><span class="mr-2">&#128196;</span> Visitors B/w Dates</a></li>
+            </ul>
         </div>
-        <ul class="nav">
-            <li class="nav-item @if($activePage == 'dashboard') active @endif">
-                <a class="nav-link" href="{{route('dashboard')}}">
-                    <i class="nc-icon nc-chart-pie-35"></i>
-                    <p>{{ __("Dashboard") }}</p>
-                </a>
-            </li>
-           
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#laravelExamples" @if($activeButton =='laravel') aria-expanded="true" @endif>
-                    <i>
-                        <img src="{{ asset('light-bootstrap/img/laravel.svg') }}" style="width:25px">
-                    </i>
-                    <p>
-                        {{ __('Laravel example') }}
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse @if($activeButton =='laravel') show @endif" id="laravelExamples">
-                    <ul class="nav">
-                        <li class="nav-item @if($activePage == 'user') active @endif">
-                            <a class="nav-link" href="{{route('profile.edit')}}">
-                                <i class="nc-icon nc-single-02"></i>
-                                <p>{{ __("User Profile") }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item @if($activePage == 'user-management') active @endif">
-                            <a class="nav-link" href="{{route('user.index')}}">
-                                <i class="nc-icon nc-circle-09"></i>
-                                <p>{{ __("User Management") }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
 
-            <li class="nav-item @if($activePage == 'table') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'table')}}">
-                    <i class="nc-icon nc-notes"></i>
-                    <p>{{ __("Table List") }}</p>
-                </a>
-            </li>
-            <li class="nav-item @if($activePage == 'typography') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'typography')}}">
-                    <i class="nc-icon nc-paper-2"></i>
-                    <p>{{ __("Typography") }}</p>
-                </a>
-            </li>
-            <li class="nav-item @if($activePage == 'icons') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'icons')}}">
-                    <i class="nc-icon nc-atom"></i>
-                    <p>{{ __("Icons") }}</p>
-                </a>
-            </li>
-            <li class="nav-item @if($activePage == 'maps') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'maps')}}">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>{{ __("Maps") }}</p>
-                </a>
-            </li>
-            <li class="nav-item @if($activePage == 'notifications') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'notifications')}}">
-                    <i class="nc-icon nc-bell-55"></i>
-                    <p>{{ __("Notifications") }}</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active bg-danger" href="{{route('page.index', 'upgrade')}}">
-                    <i class="nc-icon nc-alien-33"></i>
-                    <p>{{ __("Upgrade to PRO") }}</p>
-                </a>
-            </li>
-        </ul>
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <input type="text" placeholder="Search by name & mobile number..." class="border px-4 py-2 w-96 rounded-md">
+                <div class="flex items-center space-x-4">
+                    <span>Admin User</span>
+                    <img src="https://via.placeholder.com/40" class="rounded-full" alt="Admin">
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-4 gap-6">
+                <div class="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-6 rounded-lg shadow-md">
+                    <p class="text-2xl font-bold">2</p>
+                    <p>Today's Visitors</p>
+                </div>
+                <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-6 rounded-lg shadow-md">
+                    <p class="text-2xl font-bold">0</p>
+                    <p>Yesterday Visitors</p>
+                </div>
+                <div class="bg-gradient-to-r from-red-500 to-pink-500 text-white p-6 rounded-lg shadow-md">
+                    <p class="text-2xl font-bold">2</p>
+                    <p>Last 7 Days Visitors</p>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-500 to-green-500 text-white p-6 rounded-lg shadow-md">
+                    <p class="text-2xl font-bold">4</p>
+                    <p>Total Visitors Till Date</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</body>
+</html>

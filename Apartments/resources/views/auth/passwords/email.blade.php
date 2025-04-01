@@ -1,60 +1,49 @@
-@extends('layouts.app', ['activePage' => 'login', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION'])
+// resources/views/auth/passwords/email.blade.php
+@extends('layouts.auth', ['title' => 'Reset Password - PAVMS'])
 
 @section('content')
-    <div class="full-page section-image" data-color="black" data-image="{{asset('light-bootstrap/img/full-screen-image-2.jpg')}}">
-        <div class="content">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <form method="POST" action="{{ route('password.email') }}">
-                            @csrf
-                            <div class="card card-login card-hidden">
-                                <div class="card-header">{{ __('Reset Password') }}</div>
+<div class="text-center mb-4">
+    <h5>Password Recovery</h5>
+    <hr>
+</div>
 
-                                <div class="card-body">
-                                    @include('alerts.success')
-                                    @include('alerts.errors' )
-                                    <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                                        <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mb-0 d-flex justify-content-center">
-                                        <div class="offset-md-4">
-                                            <button type="submit" class="btn btn-warning btn-wd">
-                                                {{ __('Send Password Reset Link') }}
-                                            </button>
-                                        </div>
-                                    </div>
-                    
-                                </div>
-                            </div>
-                        </form>  
-                    </div>
-                </div>
-            </div>
-        </div>
+@if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
     </div>
+@endif
+
+<form method="POST" action="{{ route('password.email') }}">
+    @csrf
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+               name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+        @error('email')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+    <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile Number</label>
+        <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror"
+               name="mobile" value="{{ old('mobile') }}" required>
+        @error('mobile')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success">RESET</button>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="{{ route('login') }}" class="text-decoration-none">Sign in</a>
+    </div>
+</form>
 @endsection
-
-@push('js')
-    <script>
-        $(document).ready(function() {
-            demo.checkFullPageBackgroundImage();
-
-            setTimeout(function() {
-                // after 1000 ms we add the class animated to the login/register card
-                $('.card').removeClass('card-hidden');
-            }, 700)
-        });
-    </script>
-@endpush

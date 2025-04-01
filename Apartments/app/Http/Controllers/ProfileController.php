@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileRequest;
-use App\Http\Requests\PasswordRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -15,32 +14,64 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit');
+        return view('profile.edit', [
+            'activePage' => 'profile',
+            'title' => 'My Profile'
+        ]);
     }
 
     /**
      * Update the profile
      *
-     * @param  \App\Http\Requests\ProfileRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ProfileRequest $request)
+    public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.auth()->id()
+        ]);
+
         auth()->user()->update($request->all());
 
-        return back()->withStatus(__('Profile successfully updated.'));
+        return back()->with('status', __('Profile successfully updated.'));
+    }
+
+    /**
+     * Show change password form
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showChangePasswordForm()
+    {
+        return view('profile.change-password', [
+            'activePage' => 'profile',
+            'title' => 'Change Password'
+        ]);
     }
 
     /**
      * Change the password
      *
-     * @param  \App\Http\Requests\PasswordRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function password(PasswordRequest $request)
+    public function changePassword(Request $request)
     {
-        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
 
-        return back()->withPasswordStatus(__('Password successfully updated.'));
+        if (!Hash::check($request->current_password, auth()->user()->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect']);
+        }
+
+        auth()->user()->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with('status', __('Password successfully updated.'));
     }
 }

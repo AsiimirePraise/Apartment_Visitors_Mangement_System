@@ -1,4 +1,4 @@
-<!-- 
+<!--
 =========================================================
  Light Bootstrap Dashboard - v2.0.1
 =========================================================
@@ -40,16 +40,13 @@
                 @include('pages/sidebarstyle')
             @endif
 
-            <div class="@if (auth()->check() && request()->route()->getName() != "") main-panel @endif">
+            <!-- <div class="@if (auth()->check() && request()->route()->getName() != "") main-panel @endif">
                 @include('layouts.navbars.navbar')
                 @yield('content')
                 @include('layouts.footer.nav')
-            </div>
+            </div> -->
 
         </div>
-       
-
-
     </body>
         <!--   Core JS Files   -->
     <script src="{{ asset('light-bootstrap/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
@@ -72,7 +69,7 @@
     @stack('js')
     <script>
       $(document).ready(function () {
-        
+
         $('#facebook').sharrre({
           share: {
             facebook: true
